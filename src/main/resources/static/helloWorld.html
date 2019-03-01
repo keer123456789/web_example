@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>测试</title>
+</head>
+<body>
+<form>
+    用户名<input type="text" id="username" >
+    密码<input type="text" id="password" >
+    <br>
+    <input type="button"id="btn-get" value="get"></button>
+    <br>
+    <input type="button" id="btn-post" value="post"></button>
+</form>
+
+<script src="js/jquery-3.3.1.js"></script>
+<script>
+    $(document).ready(function(){
+        $("#btn-get").click(function(){
+            $.get("http://localhost:8080/get",function(data){
+
+                    alert(data);
+
+            });
+        });
+    });
+</script>
+
+<script>
+    $(function(){
+        $(document).ready(function(){
+            $("#btn-post").click(function(){
+                var hello = {
+                    name: $("#username").val(),
+                    passWord: $("#password").val()
+                }
+                var Hello=JSON.stringify(hello);
+                alert(Hello);
+                $.post({
+                    url:"http://localhost:8080/post",
+                    headers:{
+                        "content-Type":"application/json;charset=utf-8"
+                    }
+                },Hello,function (data) {
+                    alert(data);
+                } );
+            });
+        });
+    });
+</script>
+</body>
+</html>
