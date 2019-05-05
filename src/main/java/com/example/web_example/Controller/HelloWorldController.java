@@ -1,12 +1,12 @@
 package com.example.web_example.Controller;
 
+import com.example.web_example.Domain.ParserResult;
 import com.example.web_example.Domain.User;
 import com.example.web_example.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 @RestController
 public class HelloWorldController {
@@ -19,8 +19,24 @@ public class HelloWorldController {
 
     }
 
-    @GetMapping("/get")
-    public String get(){
-        return  "helloworld";
+    @PostMapping("/addPower")
+    public String  addPower(@RequestBody Map map) throws Exception {
+        if(userService.addPower(map)){
+            return "success";
+        }else {
+            return "fail";
+        }
     }
+
+    @GetMapping("/getPowerInfo/{powerID}")
+    public Map getInfo(@PathVariable String powerID) throws Exception {
+        return  userService.getPowerInfo(powerID);
+    }
+
+    @GetMapping("/work/{sql}")
+    public ParserResult work(@PathVariable String sql){
+        return userService.work(sql);
+    }
+
+
 }

@@ -8,14 +8,17 @@ import org.springframework.stereotype.Component;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.ListIterator;
 
 @Component
 public class UserDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
-    public List<User> select()
-    {
+
+    public List<User> select() {
         return jdbcTemplate.query("select *  from users ",
                 new RowMapper<User>() {
                     @Override
@@ -29,14 +32,17 @@ public class UserDao {
                 });
     }
 
-    public String insert(User user){
+
+    public String insert(User user) {
         try {
-            jdbcTemplate.update("insert into user (name,password) value(?,?)", user.getName(),user.getPassWord());
+            jdbcTemplate.update("insert into user (name,password) value(?,?)", user.getName(), user.getPassWord());
             return "插入成功";
-        }catch(Exception e) {
+        } catch (Exception e) {
             return e.toString();
         }
     }
+
+
 }
 
 
