@@ -1,4 +1,4 @@
-package com.example.web_example.ContractUtil;
+package com.example.web_example.ContractUtil.Power;
 
 import java.math.BigInteger;
 import java.util.ArrayList;

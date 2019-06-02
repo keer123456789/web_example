@@ -2,13 +2,12 @@ package com.example.web_example.Service;
 
 import com.example.web_example.BDQLParser.BDQLUtil;
 import com.example.web_example.ContractUtil.ContractUtil;
-import com.example.web_example.ContractUtil.Power;
+import com.example.web_example.ContractUtil.Power.Power;
 import com.example.web_example.Dao.UserDao;
 import com.example.web_example.Domain.ParserResult;
 import com.example.web_example.Domain.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.web3j.protocol.core.methods.response.TransactionReceipt;
 import org.web3j.tuples.generated.Tuple4;
 
