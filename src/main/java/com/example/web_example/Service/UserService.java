@@ -1,8 +1,8 @@
 package com.example.web_example.Service;
 
 import com.example.web_example.BDQLParser.BDQLUtil;
-import com.example.web_example.ContractUtil.ContractUtil;
-import com.example.web_example.ContractUtil.Power.Power;
+import com.example.web_example.Util.EthereumContractUtil;
+import com.example.web_example.Ethereum_Contract.Power.Power;
 import com.example.web_example.Dao.UserDao;
 import com.example.web_example.Domain.ParserResult;
 import com.example.web_example.Domain.User;
@@ -22,7 +22,7 @@ public class UserService {
     UserDao userDao;
 
     @Autowired
-    ContractUtil contractUtil;
+    EthereumContractUtil contractUtil;
 
     @Autowired
     BDQLUtil bdqlUtil;

@@ -44,6 +44,13 @@
             <artifactId>core</artifactId>
             <version>3.4.0</version>
         </dependency>
+
+        <dependency>
+            <groupId>org.web3j</groupId>
+            <artifactId>codegen</artifactId>
+            <version>3.4.0</version>
+        </dependency>
+
         <dependency>
             <groupId>com.bigchaindb</groupId>
             <artifactId>bigchaindb-driver</artifactId>
@@ -61,6 +68,8 @@
             <artifactId>fastjson</artifactId>
             <version>1.2.47</version>
         </dependency>
+
+
 
     </dependencies>
 
