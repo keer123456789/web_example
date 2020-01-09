@@ -10,8 +10,8 @@ import com.bigchaindb.constants.Operations;
 
 import com.bigchaindb.model.*;
 import com.bigchaindb.util.NetworkUtils;
-import com.example.web_example.Domain.BigchainDBData;
-import com.example.web_example.Domain.MetaData;
+import com.example.web_example.Domain.BigchainDB.BigchainDBData;
+import com.example.web_example.Domain.BigchainDB.MetaData;
 import com.example.web_example.Util.HttpUtil;
 import com.google.gson.JsonSyntaxException;
 

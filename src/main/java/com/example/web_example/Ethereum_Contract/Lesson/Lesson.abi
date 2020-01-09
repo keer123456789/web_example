@@ -1,17 +1,31 @@
 [
 	{
-		"constant": false,
-		"inputs": [
+		"constant": true,
+		"inputs": [],
+		"name": "getUserInfo",
+		"outputs": [
 			{
-				"name": "_name",
+				"name": "",
 				"type": "string"
 			},
 			{
-				"name": "_age",
+				"name": "",
 				"type": "uint256"
 			}
 		],
-		"name": "addNewUser",
+		"payable": false,
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"constant": false,
+		"inputs": [
+			{
+				"name": "_newage",
+				"type": "uint256"
+			}
+		],
+		"name": "changeAge",
 		"outputs": [
 			{
 				"name": "",
@@ -30,11 +44,15 @@
 		"constant": false,
 		"inputs": [
 			{
-				"name": "_newage",
+				"name": "_name",
+				"type": "string"
+			},
+			{
+				"name": "_age",
 				"type": "uint256"
 			}
 		],
-		"name": "changeAge",
+		"name": "addNewUser",
 		"outputs": [
 			{
 				"name": "",
@@ -65,23 +83,5 @@
 		],
 		"name": "userInfo",
 		"type": "event"
-	},
-	{
-		"constant": true,
-		"inputs": [],
-		"name": "getUserInfo",
-		"outputs": [
-			{
-				"name": "",
-				"type": "string"
-			},
-			{
-				"name": "",
-				"type": "uint256"
-			}
-		],
-		"payable": false,
-		"stateMutability": "view",
-		"type": "function"
 	}
 ]

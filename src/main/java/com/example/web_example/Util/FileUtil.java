@@ -12,7 +12,7 @@ import java.util.Map;
  * 工具类
  * 文件操作
  */
-@Component
+
 public class FileUtil {
     private static Logger logger = LoggerFactory.getLogger(FileUtil.class);
 
@@ -109,7 +109,7 @@ public class FileUtil {
      */
     public boolean makedir(String dir) {
         File dirs = new File(dir);
-        if (dirs.exists()) {
+        if (dirs.exists()&&dirs.isDirectory()) {
             logger.info("文件夹存在");
             return true;
         } else {

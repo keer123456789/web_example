@@ -1,4 +1,4 @@
-package com.example.web_example.Domain;
+package com.example.web_example.Domain.BigchainDB;
 
 public class ParserResult<T> {
     public static final int SUCCESS = 0;

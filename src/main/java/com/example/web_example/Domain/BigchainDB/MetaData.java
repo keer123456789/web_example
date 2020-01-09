@@ -1,4 +1,4 @@
-package com.example.web_example.Domain;
+package com.example.web_example.Domain.BigchainDB;
 
 import com.google.gson.annotations.SerializedName;
 

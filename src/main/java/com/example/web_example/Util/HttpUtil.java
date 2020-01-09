@@ -10,37 +10,6 @@ import java.util.concurrent.TimeUnit;
 public class HttpUtil {
     private static Logger logger = LoggerFactory.getLogger(HttpUtil.class);
 
-//    public static GenericCallback handleServerResponse() {
-//        //define callback methods to verify response from BigchainDBServer
-//        GenericCallback callback = new GenericCallback() {
-//
-//            @Override
-//            public void transactionMalformed(Response response) {
-//                logger.info("malformed - " + response.message());
-//                onFailure();
-//            }
-//
-//            @Override
-//            public void pushedSuccessfully(Response response) {
-//                try {
-//                    logger.info("pushedSuccessfully - " + response.body().string());
-//                    onSuccess(response);
-//                } catch (IOException e) {
-//                    // TODO Auto-generated catch block
-//                    e.printStackTrace();
-//                }
-//            }
-//
-//            @Override
-//            public void otherError(Response response) {
-//                logger.info(response.body().toString());
-//                logger.info("otherError" + response.message());
-//                onFailure();
-//            }
-//        };
-//
-//        return callback;
-//    }
 
     private static void onSuccess(Response response) throws IOException {
         //TODO : Add your logic here with response from server

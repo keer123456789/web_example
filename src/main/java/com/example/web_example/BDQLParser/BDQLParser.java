@@ -7,10 +7,10 @@ import com.bigchaindb.model.Transaction;
 
 import com.example.web_example.Bigchaindb.BigchainDBRunner;
 import com.example.web_example.Bigchaindb.BigchainDBUtil;
-import com.example.web_example.Domain.BigchainDBData;
-import com.example.web_example.Domain.MetaData;
-import com.example.web_example.Domain.ParserResult;
-import com.example.web_example.Domain.Table;
+import com.example.web_example.Domain.BigchainDB.BigchainDBData;
+import com.example.web_example.Domain.BigchainDB.MetaData;
+import com.example.web_example.Domain.BigchainDB.ParserResult;
+import com.example.web_example.Domain.BigchainDB.Table;
 import net.sf.jsqlparser.JSQLParserException;
 import net.sf.jsqlparser.expression.Expression;
 import net.sf.jsqlparser.expression.operators.relational.*;

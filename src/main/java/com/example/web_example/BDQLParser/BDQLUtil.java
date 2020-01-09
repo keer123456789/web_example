@@ -3,8 +3,8 @@ package com.example.web_example.BDQLParser;
 import com.bigchaindb.model.Transaction;
 import com.bigchaindb.model.Transactions;
 import com.example.web_example.Bigchaindb.BigchainDBUtil;
-import com.example.web_example.Domain.ParserResult;
-import com.example.web_example.Domain.Table;
+import com.example.web_example.Domain.BigchainDB.ParserResult;
+import com.example.web_example.Domain.BigchainDB.Table;
 import com.google.gson.internal.LinkedTreeMap;
 
 import org.slf4j.Logger;
