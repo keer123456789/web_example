@@ -1,13 +1,13 @@
-package com.example.web_example.Domain.BigchainDB;
+package com.example.web_example.Domain;
 
-public class ParserResult<T> {
+public class WebResult<T> {
     public static final int SUCCESS = 0;
     public static final int ERROR = 1;
     private int status;
     private T data;
     private String message;
 
-    public ParserResult() {
+    public WebResult() {
     }
 
     public int getStatus() {

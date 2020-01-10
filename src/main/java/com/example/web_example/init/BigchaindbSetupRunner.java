@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import java.security.Security;
 
-//@Component
+@Component
 public class BigchaindbSetupRunner implements CommandLineRunner {
     @Value("${blockchaindb.base-url}")
     private String baseUrl;

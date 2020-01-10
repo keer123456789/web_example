@@ -7,14 +7,13 @@ import com.bigchaindb.api.TransactionsApi;
 import com.bigchaindb.builders.BigchainDbTransactionBuilder;
 import com.bigchaindb.constants.BigchainDbApi;
 import com.bigchaindb.constants.Operations;
-
 import com.bigchaindb.model.*;
 import com.bigchaindb.util.NetworkUtils;
 import com.example.web_example.Domain.BigchainDB.BigchainDBData;
 import com.example.web_example.Domain.BigchainDB.MetaData;
 import com.example.web_example.Util.HttpUtil;
 import com.google.gson.JsonSyntaxException;
-
+import net.i2p.crypto.eddsa.EdDSAPublicKey;
 import okhttp3.Response;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -23,6 +22,7 @@ import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 @Component
 public class BigchainDBUtil {
@@ -40,7 +40,7 @@ public class BigchainDBUtil {
      * @return
      * @throws Exception
      */
-    public  String createAsset(BigchainDBData assetDate) throws Exception {
+    public String createAsset(BigchainDBData assetDate) throws Exception {
         return createAsset(assetDate, null);
     }
 
@@ -52,7 +52,7 @@ public class BigchainDBUtil {
      * @return
      * @throws Exception
      */
-    public  String createAsset(BigchainDBData assetWrapper, BigchainDBData metadataWrapper) throws Exception {
+    public String createAsset(Object assetWrapper, Object metadataWrapper) throws Exception {
 
         Transaction createTransaction = BigchainDbTransactionBuilder
                 .init()
@@ -67,147 +67,6 @@ public class BigchainDBUtil {
     }
 
 
-//    /**
-//     * obtain a asset use assetId.
-//     * @param assetId  aseetId
-//     * @return assetObject
-//     * @throws IOException
-//     * @throws ClassNotFoundException
-//     * @throws InvocationTargetException
-//     * @throws IllegalAccessException
-//     * @throws InstantiationException
-//     */
-//    public static Object getAsset(String assetId) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
-//        Transaction createTransaction = getCreateTransaction(assetId);
-//        if (createTransaction == null) {
-//            return null;
-//        }
-//        Asset asset = createTransaction.getAsset();
-//        LinkedTreeMap assetData = (LinkedTreeMap) asset.getData();
-//
-//        return bigchaindbDataToBean(assetData);
-//    }
-//
-//    /**
-//     * obtain a explicit type asset use assetId.
-//     * @param assetId assetId
-//     * @param type asset Type class
-//     * @param <T> asset Type
-//     * @return assetObject
-//     * @throws IOException
-//     * @throws ClassNotFoundException
-//     * @throws InvocationTargetException
-//     * @throws IllegalAccessException
-//     * @throws InstantiationException
-//     */
-//    public static <T> T getAsset(String assetId, Class<T> type) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
-//        Objects.requireNonNull(type);
-//
-//        Transaction createTransaction = getCreateTransaction(assetId);
-//        if (createTransaction == null) {
-//            return null;
-//        }
-//        Asset asset = createTransaction.getAsset();
-//        LinkedTreeMap assetData = (LinkedTreeMap) asset.getData();
-//
-//
-//        Object bean = bigchaindbDataToBean(assetData);
-//
-//        if (type.isInstance(bean)) {
-//            return (T) bean;
-//        } else {
-//            return null;
-//        }
-//    }
-//
-//    /**
-//     * obtain a explicit type asset use assetId.
-//     * @param transactionId assetId
-//     * @param type asset Type class
-//     * @param <T> asset Type
-//     * @return assetObject
-//     * @throws IOException
-//     * @throws ClassNotFoundException
-//     * @throws InvocationTargetException
-//     * @throws IllegalAccessException
-//     * @throws InstantiationException
-//     */
-//    public static <T> T getAssetByTransactionId(String transactionId, Class<T> type) throws IOException, ClassNotFoundException, InvocationTargetException, IllegalAccessException, InstantiationException {
-//        Objects.requireNonNull(type);
-//
-//        Transaction transaction = TransactionsApi.getTransactionById(transactionId);
-//        if (transaction == null) {
-//            return null;
-//        }
-//        Asset asset = transaction.getAsset();
-//        LinkedTreeMap assetData = (LinkedTreeMap) asset.getData();
-//
-//        Object bean = bigchaindbDataToBean(assetData);
-//
-//        if (type.isInstance(bean)) {
-//            return (T) bean;
-//        } else {
-//            return null;
-//        }
-//    }
-//
-//
-//
-//    /**
-//     * convert bigchaindb LinkedTreeMap data to java object.
-//     * @param bigchaindbData
-//     * @return
-//     * @throws ClassNotFoundException
-//     * @throws IllegalAccessException
-//     * @throws InstantiationException
-//     * @throws InvocationTargetException
-//     */
-//    public static Object bigchaindbDataToBean(LinkedTreeMap bigchaindbData) throws ClassNotFoundException {
-//        String type = (String) bigchaindbData.get("type");
-//        Object data = bigchaindbData.get("data");
-//        if (data instanceof LinkedTreeMap) {
-//            LinkedTreeMap properties = (LinkedTreeMap) bigchaindbData.get("data");
-//            String json = JsonUtils.toJson(properties);
-//            Object bean = JsonUtils.fromJson(json, ClassUtils.getClass(type));
-//            return bean;
-//        } else {
-//            return data;
-//        }
-//    }
-////
-//    /**
-//     * determine whether asset exist.
-//     *
-//     * @param assetId asset Id
-//     * @return whether asset exist
-//     */
-//    public static boolean assetIsExist(String assetId) {
-//        try {
-//            Object asset = getAsset(assetId);
-//            return asset != null;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//    }
-//
-//    /**
-//     * determine whether asset with specify type exist.
-//     * @param assetId asset Id
-//     * @param type type class
-//     * @param <T> type
-//     * @return
-//     */
-//    public static <T> boolean assetIsExist(String assetId, Class<T> type) {
-//
-//        try {
-//            T asset = getAsset(assetId, type);
-//            return asset != null;
-//        } catch (Exception e) {
-//            return false;
-//        }
-//    }
-//
-
     /**
      * 给资产增加metadata信息
      * <p>
@@ -218,193 +77,44 @@ public class BigchainDBUtil {
      * @return
      * @throws Exception
      */
-    public  String transferToSelf(BigchainDBData metaData, String assetId) {
+    public String transferToSelf(BigchainDBData metaData, String assetId) {
+        return transfer(assetId, metaData, keyPairHolder.getPublic());
+    }
 
-        Transaction transferTransaction = null;
+    public String transferToSelf(Map metaData, String assetId) {
+        return transfer(assetId, metaData, keyPairHolder.getPublic());
+    }
+
+    /**
+     * 发送交易
+     *
+     * @param assetID
+     * @param metadatad 要发送的metadata
+     * @param publicKey 接收方的公钥
+     * @return
+     */
+    public String transfer(String assetID, Object metadatad, EdDSAPublicKey publicKey) {
+        Transaction transaction = null;
         try {
-            transferTransaction = BigchainDbTransactionBuilder
+            transaction = BigchainDbTransactionBuilder
                     .init()
                     .operation(Operations.TRANSFER)
-                    .addAssets(assetId, String.class)
-                    .addMetaData(metaData)
-                    .addInput(null, transferToSelfFulFill(assetId), keyPairHolder.getPublic())
-                    .addOutput("1", keyPairHolder.getPublic())
+                    .addAssets(assetID, String.class)
+                    .addMetaData(metadatad)
+                    .addInput(null, transferToSelfFulFill(assetID), keyPairHolder.getPublic())
+                    .addOutput("1", publicKey)
                     .buildAndSign(
                             keyPairHolder.getPublic(),
                             keyPairHolder.getPrivate())
                     .sendTransaction();
         } catch (Exception e) {
             e.printStackTrace();
-            logger.error("资产ID：" + assetId + ",不存在!!!!!!!");
+            logger.error("资产ID：" + assetID + ",不存在!!!!!!!");
             return null;
         }
-        return transferTransaction.getId();
+        return transaction.getId();
     }
-//
-//    /**
-//     * transfer asset to publicKeyHexTo.
-//     * @param assetId
-//     * @param publicKey
-//     * @return
-//     * @throws Exception
-//     */
-//    public static String transferTo(String assetId, PublicKey publicKey, BigchaindbData bigchaindbData) throws Exception {
-//
-//        Transaction transferTransaction = BigchainDbTransactionBuilder
-//                .init()
-//                .operation(Operations.TRANSFER)
-//                .addAssets(assetId, String.class)
-//                .addMetaData(bigchaindbData)
-//                .addInput(null, transferToSelfFulFill(assetId), KeyPairHolder.getPublic())
-//                .addOutput("1", (EdDSAPublicKey)publicKey)
-//                .buildAndSign(
-//                        KeyPairHolder.getPublic(),
-//                        KeyPairHolder.getPrivate())
-//                .sendTransaction();
-//        return transferTransaction.getId();
-//    }
-//
 
-//
-//    /**
-//     * obtain all asset's all transaction.
-//     * sort by transfer order
-//     * @param assetId asset Id
-//     * @return transactions
-//     * @throws IOException
-//     */
-//    public static Transactions getTransactionsByAssetId(String assetId) throws IOException {
-//        Transactions transactions = new Transactions();
-//        Transactions createTransactions = TransactionsApi.getTransactionsByAssetId(assetId, Operations.CREATE);
-//        for (Transaction create : createTransactions.getTransactions()) {
-//            transactions.addTransaction(create);
-//        }
-//        Transactions transfers = TransactionsApi.getTransactionsByAssetId(assetId, Operations.TRANSFER);
-//        for (Transaction transfer : transfers.getTransactions()) {
-//            transactions.addTransaction(transfer);
-//        }
-//        return transactions;
-//    }
-//
-
-
-//
-//    /**
-//     * obtain whole metadata.
-//     *
-//     * integrate ont asset's all transactions's metadata into one metadataObject.
-//     * when duplicate attributes appear, use the first one.
-//     *
-//     * for example:
-//     * 1.
-//     * {
-//     *     name: 'tom'
-//     * }
-//     * 2.
-//     * {
-//     *     age: 22
-//     * }
-//     * 3.
-//     * {
-//     *     gender: 'male'
-//     * }
-//     * 4.
-//     * {
-//     *     age: 44,
-//     *     height: 172
-//     * }
-//     * In the end, the object is:
-//     * {
-//     *     name: 'tom',
-//     *     age: 22,
-//     *     gender: 'male',
-//     *     height: 172
-//     * }
-//     *
-//     * @param assetId asset Id
-//     * @param type type class
-//     * @param <T> type
-//     * @return metadataObject
-//     * @throws IOException
-//     * @throws ClassNotFoundException
-//     * @throws InstantiationException
-//     * @throws IllegalAccessException
-//     * @throws InvocationTargetException
-//     * @throws IntrospectionException
-//     */
-//    public static <T> T getWholeMetaData(String assetId, Class<T> type) throws IOException, ClassNotFoundException, InstantiationException, IllegalAccessException, InvocationTargetException, IntrospectionException {
-//
-//        List<T> metadatas = getMetaDatas(assetId, type);
-//        if (CollectionUtils.isEmpty(metadatas)) {
-//            return null;
-//        }
-//
-//        BeanInfo beanInfo = Introspector.getBeanInfo(type);
-//        PropertyDescriptor[] pds = beanInfo.getPropertyDescriptors();
-//
-//        T bean = type.newInstance();
-//        for (T data : metadatas) {
-//            for (PropertyDescriptor pd : pds) {
-//                if (pd.getWriteMethod() == null || pd.getWriteMethod() == null) {
-//                    continue;
-//                }
-//                Object retVal = pd.getReadMethod().invoke(data);
-//                if (retVal != null) {
-//                    if(retVal.getClass().equals(int.class)&&((int)retVal==0)){
-//                        ;
-//                    }else {
-//                        pd.getWriteMethod().invoke(bean, retVal);
-//                    }
-//                }
-//            }
-//        }
-//        return bean;
-//    }
-//
-//    /**
-//     * obtain metadatas
-//     * @param assetId asset Id
-//     * @param type type class
-//     * @param <T> type
-//     * @return metadataObjects
-//     * @throws IOException
-//     * @throws ClassNotFoundException
-//     * @throws InvocationTargetException
-//     * @throws InstantiationException
-//     * @throws IllegalAccessException
-//     */
-//    public static <T> List<T> getMetaDatas(String assetId, Class<T> type) throws IOException, ClassNotFoundException, InvocationTargetException, InstantiationException, IllegalAccessException {
-//        List<T> metadatas = new ArrayList<>();
-//
-//        Transactions transactions = getTransactionsByAssetId(assetId);
-//        for (Transaction transaction : transactions.getTransactions()) {
-//            LinkedTreeMap metaDataMap = (LinkedTreeMap) transaction.getMetaData();
-//            if (metaDataMap != null) {
-//                Object bean = BigchaindbUtil.bigchaindbDataToBean(metaDataMap);
-//                if (bean != null && type.isInstance(bean)) {
-//                    metadatas.add((T) bean);
-//                }
-//            }
-//        }
-//        return metadatas;
-//    }
-//
-//    public static <T> List<T> getAllAssets(String key, Class<T> type) throws IOException, ClassNotFoundException {
-//        List<T> listAssets =new ArrayList<>();
-//        Assets assets = AssetsApi.getAssets(key);
-//        for(Asset asset:assets.getAssets()){
-//            LinkedTreeMap assetMap=(LinkedTreeMap)asset.getData();
-//            if (assetMap != null) {
-//                Object bean = BigchainDBUtil.bigchaindbDataToBean(assetMap);
-//                if (bean != null && type.isInstance(bean)) {
-//                    listAssets.add((T) bean);
-//                }
-//            }
-//        }
-//        return listAssets;
-//
-//    }
-//
 
     /**
      * 通过资产id获取最后交易输出
@@ -413,7 +123,7 @@ public class BigchainDBUtil {
      * @return
      * @throws IOException
      */
-    private  FulFill transferToSelfFulFill(String assetId) throws IOException, InterruptedException {
+    private FulFill transferToSelfFulFill(String assetId) throws IOException, InterruptedException {
         final FulFill spendFrom = new FulFill();
         String transactionId = getLastTransactionId(assetId);
         spendFrom.setTransactionId(transactionId);
@@ -428,7 +138,7 @@ public class BigchainDBUtil {
      * @return last transaction id
      * @throws IOException
      */
-    public  String getLastTransactionId(String assetId) throws IOException, InterruptedException {
+    private String getLastTransactionId(String assetId) throws IOException, InterruptedException {
         return getLastTransaction(assetId);
     }
 
@@ -439,11 +149,11 @@ public class BigchainDBUtil {
      * @return last transaction
      * @throws IOException
      */
-    public  String  getLastTransaction(String assetId) throws IOException, InterruptedException {
+    public String getLastTransaction(String assetId) {
 //        Transactions transactions = TransactionsApi.getTransactionsByAssetId(assetId, Operations.TRANSFER);
 //        List<Transaction> transfers=transactions.getTransactions();
-        String json= HttpUtil.httpGet(BigChainDBGlobals.getBaseUrl() + BigchainDbApi.TRANSACTIONS + "/?asset_id=" + assetId + "&operation=TRANSFER",50);
-        List<Transaction> transfers=JSON.parseArray(json,Transaction.class);
+        String json = HttpUtil.httpGet(BigChainDBGlobals.getBaseUrl() + BigchainDbApi.TRANSACTIONS + "/?asset_id=" + assetId + "&operation=TRANSFER", 50);
+        List<Transaction> transfers = JSON.parseArray(json, Transaction.class);
 
         if (transfers != null && transfers.size() > 0) {
             return transfers.get(transfers.size() - 1).getId();
@@ -459,7 +169,7 @@ public class BigchainDBUtil {
      * @return
      * @throws IOException
      */
-    public  Transaction getCreateTransaction(String assetId) throws IOException {
+    public Transaction getCreateTransaction(String assetId) throws IOException {
         try {
             Transactions apiTransactions = TransactionsApi.getTransactionsByAssetId(assetId, Operations.CREATE);
 
@@ -475,17 +185,6 @@ public class BigchainDBUtil {
         }
     }
 
-    /**
-     * Transaction获取交易id
-     *
-     * @param transaction
-     * @return
-     */
-    private  String getTransactionId(Transaction transaction) {
-        String withQuotationId = transaction.getId();
-        return withQuotationId.substring(1, withQuotationId.length() - 1);
-//        return transaction.getId();
-    }
 
     /**
      * 检查交易是否存在
@@ -493,7 +192,7 @@ public class BigchainDBUtil {
      * @param txID
      * @return
      */
-    public  boolean checkTransactionExit(String txID) {
+    public boolean checkTransactionExit(String txID) {
         try {
             Thread.sleep(2000);
             Transaction transaction = TransactionsApi.getTransactionById(txID);
@@ -538,7 +237,7 @@ public class BigchainDBUtil {
      * @param key
      * @return
      */
-    public  Assets getAssetByKey(String key) {
+    public Assets getAssetByKey(String key) {
         try {
             return AssetsApi.getAssets(key);
         } catch (IOException e) {
@@ -553,15 +252,7 @@ public class BigchainDBUtil {
      * @param key
      * @return
      */
-//    public static MetaDatas getMetaDatasByKey(String key){
-//        try {
-//            return MetaDataApi.getMetaData(key);
-//        } catch (IOException e) {
-//            logger.error("未知错误！！！！！！！");
-//            return null;
-//        }
-//    }
-    public  List<MetaData> getMetaDatasByKey(String key) {
+    public List<MetaData> getMetaDatasByKey(String key) {
         logger.debug("getMetaData Call :" + key);
         Response response;
         String body = null;
@@ -574,44 +265,19 @@ public class BigchainDBUtil {
             return null;
         }
 
-        return  JSON.parseArray(body, MetaData.class);
+        return JSON.parseArray(body, MetaData.class);
     }
 
-    public Transaction getTransactionByTXID(String ID){
-        logger.info("开始查询交易信息：TXID："+ID);
+    public Transaction getTransactionByTXID(String ID) {
+        logger.info("开始查询交易信息：TXID：" + ID);
         try {
             logger.info("查询成功！！！！！！");
             return TransactionsApi.getTransactionById(ID);
         } catch (IOException e) {
-            logger.error("交易不存在，TXID："+ID);
+            logger.error("交易不存在，TXID：" + ID);
             return null;
         }
     }
-//
-//    /**
-//     * 通过猪的id，类型查询交易id
-//     * @param pigId
-//     * @return
-//     */
-//    public static String getAssetId(String pigId,String type) {
-//        String id = null;
-//        try{
-//            List<Asset> assets = AssetsApi.getAssets(pigId).getAssets();
-//
-//            LinkedTreeMap linkedTreeMap;
-//            for(Asset asset : assets){
-//                linkedTreeMap= (LinkedTreeMap) asset.getData();
-//                if(linkedTreeMap.get("type").equals(type)){
-//                    id=asset.getId();
-//
-//                }
-//            }
-//        }catch(Exception e){
-//            return null;
-//        }
-//        return id;
-//
-//    }
 
     public static void main(String[] args) throws IOException {
 

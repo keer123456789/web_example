@@ -3,7 +3,7 @@ package com.example.web_example.BDQLParser;
 import com.bigchaindb.model.Transaction;
 import com.bigchaindb.model.Transactions;
 import com.example.web_example.Bigchaindb.BigchainDBUtil;
-import com.example.web_example.Domain.BigchainDB.ParserResult;
+import com.example.web_example.Domain.WebResult;
 import com.example.web_example.Domain.BigchainDB.Table;
 import com.google.gson.internal.LinkedTreeMap;
 
@@ -95,8 +95,8 @@ public class BDQLUtil {
      * @param sql
      * @return
      */
-    public  ParserResult work(String sql) {
-        ParserResult result = new ParserResult();
+    public WebResult work(String sql) {
+        WebResult result = new WebResult();
         int sort = getSort(lowercaseToUpperCase(sql));
         return bdqlParser.BDQLParser(sql, sort);
     }

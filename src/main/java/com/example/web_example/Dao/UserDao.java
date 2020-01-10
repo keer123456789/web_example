@@ -33,12 +33,14 @@ public class UserDao {
     }
 
 
-    public String insert(User user) {
+    public int insert(User user) {
+        int i=0;
         try {
-            jdbcTemplate.update("insert into user (name,password) value(?,?)", user.getName(), user.getPassWord());
-            return "插入成功";
+            i=jdbcTemplate.update("insert into user (name,password) value(?,?)", user.getName(), user.getPassWord());
+            return i;
         } catch (Exception e) {
-            return e.toString();
+            e.printStackTrace();
+            return i;
         }
     }
 

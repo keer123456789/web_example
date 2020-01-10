@@ -1,16 +1,17 @@
 package com.example.web_example.Controller;
 
-import com.example.web_example.Service.web3Service;
+import com.example.web_example.Domain.WebResult;
+import com.example.web_example.Service.Web3Service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController
+@RestController("/web3")
 public class web3Controller {
 
     @Autowired
-    web3Service web3Service;
+    Web3Service web3Service;
 
     /**
      * 在智能合约Lesson中添加新的用户信息
@@ -25,7 +26,7 @@ public class web3Controller {
      * @throws Exception
      */
     @PostMapping("/addUser")
-    public String addUser(@RequestBody Map map) throws Exception {
+    public WebResult addUser(@RequestBody Map map) throws Exception {
         return web3Service.addUser(map);
     }
 
@@ -37,7 +38,7 @@ public class web3Controller {
      * @throws Exception
      */
     @GetMapping("/getUserInfo/{address}")
-    public String getUserInfo(@PathVariable String address) throws Exception {
+    public WebResult getUserInfo(@PathVariable String address) throws Exception {
         return web3Service.getUserInfo(address);
     }
 
@@ -50,7 +51,7 @@ public class web3Controller {
      * @throws Exception
      */
     @GetMapping("/changeUserAge/{address}/{age}")
-    public String changeUserAge(@PathVariable String address, @PathVariable String age) throws Exception {
+    public WebResult changeUserAge(@PathVariable String address, @PathVariable String age) throws Exception {
         return web3Service.changeUserAge(address, age);
     }
 }

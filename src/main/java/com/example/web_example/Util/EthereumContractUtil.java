@@ -1,6 +1,7 @@
 package com.example.web_example.Util;
 
 
+import com.example.web_example.Ethereum_Contract.Buy.Buy;
 import com.example.web_example.Ethereum_Contract.Lesson.Lesson;
 import com.example.web_example.Ethereum_Contract.exampleContract;
 import org.slf4j.Logger;
@@ -53,7 +54,7 @@ public class EthereumContractUtil {
     }
 
     /**
-     * 在geth客户端使用账户地址部署合约
+     * 在geth客户端使用账户地址部署合约Lesson
      * @param account_address
      * @return
      * @throws Exception
@@ -63,7 +64,7 @@ public class EthereumContractUtil {
     }
 
     /**
-     * 在geth客户端使用账户地址部署合约
+     * 在geth客户端使用账户地址部署合约Lesson
      * @param account_address
      * @param web3_url
      * @return
@@ -93,6 +94,72 @@ public class EthereumContractUtil {
         Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
         ContractGasProvider contractGasProvider = new DefaultGasProvider();
         return Lesson.deploy(web3j,credentials,contractGasProvider.getGasPrice(),contractGasProvider.getGasLimit()).send();
+    }
+
+    /**
+     * 引入Buy智能合约
+     * @param account_address
+     * @return
+     */
+    public Buy BuyLoad(String account_address) {
+        return BuyLoad(account_address,lesson_address,web3_url);
+    }
+
+    /**
+     * 引入Buy智能合约
+     * @param account_address
+     * @param contract_address
+     * @param web3_url
+     * @return
+     */
+    public Buy BuyLoad(String account_address,String contract_address,String web3_url) {
+        Web3j web3j = Web3j.build(new HttpService(web3_url));
+        TransactionManager clientTransactionManager = new ClientTransactionManager(web3j, account_address);
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        return Buy.load(contract_address, web3j, clientTransactionManager, contractGasProvider.getGasPrice(), contractGasProvider.getGasLimit());
+    }
+
+    /**
+     * 在geth客户端使用账户地址部署合约Lesson
+     * @param account_address
+     * @return
+     * @throws Exception
+     */
+    public Buy BuyDeploy(String account_address) throws Exception {
+        return BuyDeploy(account_address,web3_url);
+    }
+
+    /**
+     * 在geth客户端使用账户地址部署合约Lesson
+     * @param account_address
+     * @param web3_url
+     * @return
+     * @throws Exception
+     */
+    public Buy BuyDeploy(String account_address,String web3_url) throws Exception {
+        Web3j web3j = Web3j.build(new HttpService(web3_url));
+        TransactionManager clientTransactionManager = new ClientTransactionManager(web3j, account_address);
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        return Buy.deploy(web3j, clientTransactionManager, contractGasProvider.getGasPrice(), contractGasProvider.getGasLimit()).send();
+    }
+
+    public Buy BuyDeployByWallet(String password,String walletPath) throws Exception {
+        return BuyDeployByWallet(password,walletPath,web3_url);
+    }
+
+    /**
+     * 在geth客户端上使用钱包文件部署合约
+     * @param password 账户密码
+     * @param walletPath 钱包文件
+     * @param web3_url geth客户端url
+     * @return
+     * @throws Exception
+     */
+    public Buy BuyDeployByWallet(String password,String walletPath,String web3_url ) throws Exception {
+        Web3j web3j = Web3j.build(new HttpService(web3_url));
+        Credentials credentials = WalletUtils.loadCredentials(password,walletPath);
+        ContractGasProvider contractGasProvider = new DefaultGasProvider();
+        return Buy.deploy(web3j,credentials,contractGasProvider.getGasPrice(),contractGasProvider.getGasLimit()).send();
     }
 
     /**
@@ -128,7 +195,7 @@ public class EthereumContractUtil {
 
     public static void main(String[] args) throws Exception {
         EthereumContractUtil contractUtil = new EthereumContractUtil();
-        contractUtil.GenerateContract("./src/main/java/com/example/web_example/Ethereum_Contract/Lesson/Lesson.abi", "./src/main/java/com/example/web_example/Ethereum_Contract/Lesson/Lesson.bin", "POWER");
+        contractUtil.GenerateContract("./src/main/java/com/example/web_example/Ethereum_Contract/Buy/buy.abi", "./src/main/java/com/example/web_example/Ethereum_Contract/buy/buy.bin", "Buy");
         logger.info(EthereumContractUtil.class.getPackage().getName());
 
 
