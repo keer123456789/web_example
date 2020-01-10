@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.Map;
 
-@RestController("/web3")
+@RestController()
+@RequestMapping("/web3")
 public class web3Controller {
 
     @Autowired
@@ -25,7 +26,7 @@ public class web3Controller {
      * @return
      * @throws Exception
      */
-    @PostMapping("/addUser")
+    @RequestMapping(value = "/addUser",method = RequestMethod.POST)
     public WebResult addUser(@RequestBody Map map) throws Exception {
         return web3Service.addUser(map);
     }
@@ -37,7 +38,7 @@ public class web3Controller {
      * @return 返回相应的用户信息
      * @throws Exception
      */
-    @GetMapping("/getUserInfo/{address}")
+    @RequestMapping(value = "/getUserInfo/{address}",method = RequestMethod.GET)
     public WebResult getUserInfo(@PathVariable String address) throws Exception {
         return web3Service.getUserInfo(address);
     }

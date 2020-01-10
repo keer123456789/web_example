@@ -14,7 +14,8 @@ import java.util.Map;
  * @CreateTime: 2020-01-10 09:46
  * @Description: BigchainDB的接口
  */
-@RestController("/bigchainDB")
+@RestController()
+@RequestMapping("/bigchaindb")
 public class BigchainDBController {
     @Autowired
     BigchainDBService bigchainDBService;
@@ -25,7 +26,7 @@ public class BigchainDBController {
      * @param sql
      * @return
      */
-    @GetMapping("/work/{sql}")
+    @RequestMapping(value = "/work/{sql}",method = RequestMethod.GET)
     public WebResult work(@PathVariable String sql) {
         return bigchainDBService.work(sql);
     }
@@ -35,7 +36,7 @@ public class BigchainDBController {
      *{
      *  "asset":{
      *      "car":"baoma",
-     *      "color":red
+     *      "color":"red"
      *  }
      *  "metadata":{
      *      "length":"12",
@@ -45,7 +46,7 @@ public class BigchainDBController {
      * @param map
      * @return
      */
-    @PostMapping("/create")
+    @RequestMapping(value = "/create",method = RequestMethod.POST)
     public WebResult create(@RequestBody Map map) {
         Map asset = (Map) map.get("asset");
         Map metadata = (Map) map.get("metadata");
@@ -65,7 +66,7 @@ public class BigchainDBController {
      * @param map
      * @return
      */
-    @PostMapping("/metadata")
+    @RequestMapping(value = "/metadata",method = RequestMethod.POST)
     public WebResult metadata(@RequestBody Map map) {
         Map metadata = (Map) map.get("metadata");
         String assetID = (String) map.get("assetID");
@@ -84,7 +85,7 @@ public class BigchainDBController {
      * @param map
      * @return
      */
-    @PostMapping("/transfer")
+    @RequestMapping(value = "/transfer",method = RequestMethod.POST)
     public WebResult transfer(@RequestBody Map map) {
         Map metadata = (Map) map.get("metadata");
         String assetID = (String) map.get("assetID");

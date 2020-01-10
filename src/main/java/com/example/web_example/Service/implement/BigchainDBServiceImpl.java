@@ -85,7 +85,6 @@ public class BigchainDBServiceImpl implements BigchainDBService {
      * @return
      */
     public WebResult transferAssert(String assetID, Map metadata, String publicKey){
-
         String txID=bigchainDBUtil.transfer(assetID,metadata, (EdDSAPublicKey) KeyPairUtils.decodeKeyPair(publicKey).getPublic());
         return checkTransactionExit(txID);
     }

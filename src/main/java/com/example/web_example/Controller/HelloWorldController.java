@@ -6,7 +6,8 @@ import com.example.web_example.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-@RestController("/mysql")
+@RestController()
+@RequestMapping("/mysql")
 public class HelloWorldController {
     @Autowired
     UserService userService;
@@ -20,7 +21,7 @@ public class HelloWorldController {
      * @param user
      * @return
      */
-    @PostMapping("/add")
+    @RequestMapping(value = "/add",method = RequestMethod.POST)
     public WebResult post(@RequestBody User user){
         return userService.addUser(user);
     }
