@@ -4,6 +4,7 @@ import com.example.web_example.Domain.WebResult;
 import com.example.web_example.Ethereum_Contract.Lesson.Lesson;
 import com.example.web_example.Service.Web3Service;
 import com.example.web_example.Util.EthereumContractUtil;
+import com.example.web_example.Util.EthereumGethUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
@@ -38,8 +39,11 @@ public class Web3ServiceImpl implements Web3Service {
         WebResult webResult = new WebResult();
         EthereumContractUtil contractUtil = new EthereumContractUtil();
         Lesson lesson = contractUtil.LessonLoad(map.get("address").toString());
+        EthereumGethUtil util=new EthereumGethUtil();
+        util.UnlockAccount(map.get("address").toString(),"78787878","http:192.168.85.147:8545");
         TransactionReceipt receipt = lesson.addNewUser(map.get("name").toString(), new BigInteger(map.get("age").toString())).send();
         List<Lesson.UserInfoEventResponse> list = lesson.getUserInfoEvents(receipt);
+        logger.info("日志："+receipt.getLogs().toString());
 
         if (list.size() == 0) {
             webResult.setMessage("操作失败");

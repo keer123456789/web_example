@@ -68,7 +68,7 @@ public class HttpUtil {
     public static String httpPost(String url, String data) {
         String result = null;
         OkHttpClient httpClient = new OkHttpClient();
-        RequestBody requestBody = RequestBody.create(MediaType.parse("text/html;charset=utf-8"), data);
+        RequestBody requestBody = RequestBody.create(MediaType.parse("application/json;charset=utf-8"), data);
         Request request = new Request.Builder().url(url).post(requestBody).build();
         try {
             Response response = httpClient.newCall(request).execute();

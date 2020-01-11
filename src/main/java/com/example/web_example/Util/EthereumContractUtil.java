@@ -20,11 +20,10 @@ import org.web3j.tx.gas.DefaultGasProvider;
 
 public class EthereumContractUtil {
 
-    @Value("${web3_url}")
-    private String web3_url;
 
-    @Value("{lesson_address}")
-    private String lesson_address;
+    private String web3_url=PropertyUtil.getProperties("web3_url");
+
+    private String lesson_address=PropertyUtil.getProperties("lesson_address");
 
 
     private static Logger logger = LoggerFactory.getLogger(EthereumContractUtil.class);
@@ -195,9 +194,10 @@ public class EthereumContractUtil {
 
     public static void main(String[] args) throws Exception {
         EthereumContractUtil contractUtil = new EthereumContractUtil();
-        contractUtil.GenerateContract("./src/main/java/com/example/web_example/Ethereum_Contract/Buy/buy.abi", "./src/main/java/com/example/web_example/Ethereum_Contract/buy/buy.bin", "Buy");
+        contractUtil.GenerateContract("./src/main/java/com/example/web_example/Ethereum_Contract/Buy/buy.abi", "./src/main/java/com/example/web_example/Ethereum_Contract/buy/buy.bin", "Power");
         logger.info(EthereumContractUtil.class.getPackage().getName());
-
+//        Lesson lesson=contractUtil.LessonDeployByWallet("78787878","./UTC--2020-01-07T02-22-43.511282343Z--9d627dbba406dbce5f2e622fac71ad18ad696b44","http://192.168.85.147:8545");
+//        logger.info(lesson.getContractAddress());
 
 
     }

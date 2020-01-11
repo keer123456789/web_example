@@ -35,8 +35,8 @@ import java.util.Map;
 public class EthereumGethUtil {
     private Logger logger = LoggerFactory.getLogger(EthereumGethUtil.class);
 
-    @Value("${web3_url}")
-    private String web3_url;
+
+    private String web3_url=PropertyUtil.getProperties("web3_url");
 
 
     /**
@@ -114,12 +114,14 @@ public class EthereumGethUtil {
         map.put("id", 74);
         String json = JSON.toJSONString(map);
         String resp = HttpUtil.httpPost(web3_url, json);
-        Map map1 = (Map) JSON.parse(resp);
-        if (!map1.containsValue("result")) {
-            return true;
-        } else {
-            return false;
-        }
+//        Map map1 = (Map) JSON.parse(resp);
+//        if (!map1.containsValue("result")) {
+//            return true;
+//        } else {
+//            return false;
+//        }
+        logger.info(resp);
+        return true;
     }
 
     /**
@@ -257,6 +259,11 @@ public class EthereumGethUtil {
             return null;
         }
         return listAccounts.getAccountIds();
+    }
+
+    public static void main(String[] args) {
+        EthereumGethUtil ethereumGethUtil=new EthereumGethUtil();
+        ethereumGethUtil.minerStart("http://192.168.85.147:8545");
     }
 
 }
